@@ -15,7 +15,6 @@
             <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True" DataSourceID="SqlDataSource5" DataTextField="VOTING_MONTH" DataValueField="VOTING_MONTH"></asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:final connection %>" ProviderName="<%$ ConnectionStrings:final connection.ProviderName %>" SelectCommand="select distinct voting_month from voter_details"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:final connection %>" ProviderName="<%$ ConnectionStrings:final connection.ProviderName %>" SelectCommand="SELECT &quot;VOTING_MONTH&quot; FROM &quot;VOTER_DETAILS&quot;"></asp:SqlDataSource>
-            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" DataSourceID="SqlDataSource8"></asp:GridView>
                     <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:final connection %>" ProviderName="<%$ ConnectionStrings:final connection.ProviderName %>" SelectCommand=" select * from (select candidate_id,count (*) as number_of_vote from voter_details  where voting_year = :Voting_year and voting_month = :Voting_month group by candidate_id order by number_of_vote desc) where rownum &lt;4;">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="DropDownList1" Name="Voting_year" PropertyName="SelectedValue" />
