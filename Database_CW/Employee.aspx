@@ -9,10 +9,10 @@
     <p>Employee Name&nbsp;
          <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
     </p>
-    <p>Date of Birth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+    <p>Date of Birth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
     </p>
-    <p>Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <p>Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
     </p>
     <p>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -36,8 +36,9 @@
     <br />
     <h4>Employee Details</h4>
     <p>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="EMPLOYEE_ID" DataSourceID="SqlDataSource1">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="EMPLOYEE_ID" DataSourceID="SqlDataSource1" AllowPaging="True" AllowSorting="True">
             <Columns>
+                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
                 <asp:BoundField DataField="EMPLOYEE_ID" HeaderText="EMPLOYEE_ID" ReadOnly="True" SortExpression="EMPLOYEE_ID" />
                 <asp:BoundField DataField="EMPLOYEE_NAME" HeaderText="EMPLOYEE_NAME" SortExpression="EMPLOYEE_NAME" />
                 <asp:BoundField DataField="DOB" HeaderText="DOB" SortExpression="DOB" />
@@ -48,7 +49,45 @@
                 <asp:BoundField DataField="ADDRESS_ID2" HeaderText="ADDRESS_ID2" SortExpression="ADDRESS_ID2" />
             </Columns>
         </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:final connection %>" ProviderName="<%$ ConnectionStrings:final connection.ProviderName %>" SelectCommand="SELECT * FROM &quot;EMPLOYEES&quot;"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:final connection %>" ProviderName="<%$ ConnectionStrings:final connection.ProviderName %>" SelectCommand="SELECT * FROM &quot;EMPLOYEES&quot;" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM &quot;EMPLOYEES&quot; WHERE &quot;EMPLOYEE_ID&quot; = :original_EMPLOYEE_ID AND ((&quot;EMPLOYEE_NAME&quot; = :original_EMPLOYEE_NAME) OR (&quot;EMPLOYEE_NAME&quot; IS NULL AND :original_EMPLOYEE_NAME IS NULL)) AND ((&quot;DOB&quot; = :original_DOB) OR (&quot;DOB&quot; IS NULL AND :original_DOB IS NULL)) AND ((&quot;CONTACT&quot; = :original_CONTACT) OR (&quot;CONTACT&quot; IS NULL AND :original_CONTACT IS NULL)) AND &quot;EMAIL1&quot; = :original_EMAIL1 AND ((&quot;EMAIL2&quot; = :original_EMAIL2) OR (&quot;EMAIL2&quot; IS NULL AND :original_EMAIL2 IS NULL)) AND &quot;ADDRESS_ID1&quot; = :original_ADDRESS_ID1 AND ((&quot;ADDRESS_ID2&quot; = :original_ADDRESS_ID2) OR (&quot;ADDRESS_ID2&quot; IS NULL AND :original_ADDRESS_ID2 IS NULL))" InsertCommand="INSERT INTO &quot;EMPLOYEES&quot; (&quot;EMPLOYEE_ID&quot;, &quot;EMPLOYEE_NAME&quot;, &quot;DOB&quot;, &quot;CONTACT&quot;, &quot;EMAIL1&quot;, &quot;EMAIL2&quot;, &quot;ADDRESS_ID1&quot;, &quot;ADDRESS_ID2&quot;) VALUES (:EMPLOYEE_ID, :EMPLOYEE_NAME, :DOB, :CONTACT, :EMAIL1, :EMAIL2, :ADDRESS_ID1, :ADDRESS_ID2)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE &quot;EMPLOYEES&quot; SET &quot;EMPLOYEE_NAME&quot; = :EMPLOYEE_NAME, &quot;DOB&quot; = :DOB, &quot;CONTACT&quot; = :CONTACT, &quot;EMAIL1&quot; = :EMAIL1, &quot;EMAIL2&quot; = :EMAIL2, &quot;ADDRESS_ID1&quot; = :ADDRESS_ID1, &quot;ADDRESS_ID2&quot; = :ADDRESS_ID2 WHERE &quot;EMPLOYEE_ID&quot; = :original_EMPLOYEE_ID AND ((&quot;EMPLOYEE_NAME&quot; = :original_EMPLOYEE_NAME) OR (&quot;EMPLOYEE_NAME&quot; IS NULL AND :original_EMPLOYEE_NAME IS NULL)) AND ((&quot;DOB&quot; = :original_DOB) OR (&quot;DOB&quot; IS NULL AND :original_DOB IS NULL)) AND ((&quot;CONTACT&quot; = :original_CONTACT) OR (&quot;CONTACT&quot; IS NULL AND :original_CONTACT IS NULL)) AND &quot;EMAIL1&quot; = :original_EMAIL1 AND ((&quot;EMAIL2&quot; = :original_EMAIL2) OR (&quot;EMAIL2&quot; IS NULL AND :original_EMAIL2 IS NULL)) AND &quot;ADDRESS_ID1&quot; = :original_ADDRESS_ID1 AND ((&quot;ADDRESS_ID2&quot; = :original_ADDRESS_ID2) OR (&quot;ADDRESS_ID2&quot; IS NULL AND :original_ADDRESS_ID2 IS NULL))">
+            <DeleteParameters>
+                <asp:Parameter Name="original_EMPLOYEE_ID" Type="Decimal" />
+                <asp:Parameter Name="original_EMPLOYEE_NAME" Type="String" />
+                <asp:Parameter Name="original_DOB" Type="DateTime" />
+                <asp:Parameter Name="original_CONTACT" Type="String" />
+                <asp:Parameter Name="original_EMAIL1" Type="String" />
+                <asp:Parameter Name="original_EMAIL2" Type="String" />
+                <asp:Parameter Name="original_ADDRESS_ID1" Type="Decimal" />
+                <asp:Parameter Name="original_ADDRESS_ID2" Type="Decimal" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="EMPLOYEE_ID" Type="Decimal" />
+                <asp:Parameter Name="EMPLOYEE_NAME" Type="String" />
+                <asp:Parameter Name="DOB" Type="DateTime" />
+                <asp:Parameter Name="CONTACT" Type="String" />
+                <asp:Parameter Name="EMAIL1" Type="String" />
+                <asp:Parameter Name="EMAIL2" Type="String" />
+                <asp:Parameter Name="ADDRESS_ID1" Type="Decimal" />
+                <asp:Parameter Name="ADDRESS_ID2" Type="Decimal" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="EMPLOYEE_NAME" Type="String" />
+                <asp:Parameter Name="DOB" Type="DateTime" />
+                <asp:Parameter Name="CONTACT" Type="String" />
+                <asp:Parameter Name="EMAIL1" Type="String" />
+                <asp:Parameter Name="EMAIL2" Type="String" />
+                <asp:Parameter Name="ADDRESS_ID1" Type="Decimal" />
+                <asp:Parameter Name="ADDRESS_ID2" Type="Decimal" />
+                <asp:Parameter Name="original_EMPLOYEE_ID" Type="Decimal" />
+                <asp:Parameter Name="original_EMPLOYEE_NAME" Type="String" />
+                <asp:Parameter Name="original_DOB" Type="DateTime" />
+                <asp:Parameter Name="original_CONTACT" Type="String" />
+                <asp:Parameter Name="original_EMAIL1" Type="String" />
+                <asp:Parameter Name="original_EMAIL2" Type="String" />
+                <asp:Parameter Name="original_ADDRESS_ID1" Type="Decimal" />
+                <asp:Parameter Name="original_ADDRESS_ID2" Type="Decimal" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
     </p>
 
 </asp:Content>
